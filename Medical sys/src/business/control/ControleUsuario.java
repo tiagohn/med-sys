@@ -8,10 +8,9 @@ public class ControleUsuario {
 	private static Usuario usr;
 	private static boolean autenticado;
 	
-	public static boolean start(String usuario, String senha){
+	public static boolean start(String usuario, String senha) throws ExcecaoCadastro, ExcecaoLogin{
 		usr = carregarUsuario();
 		
-		try {	
 			if (usr == null){
 				addUsuario(usuario, senha);
 				autenticado = true;
@@ -20,10 +19,7 @@ public class ControleUsuario {
 				autenticarUsuario(usuario, senha);
 				
 			}
-    	} catch (ExcecaoCadastro | ExcecaoLogin e) {
-			System.out.println("Erro: " + e.getMessage());
-    		//e.printStackTrace();
-		}
+    	
 		
 		return true;
 		
@@ -44,21 +40,34 @@ public class ControleUsuario {
 	    }
 	    
 	    private static Usuario carregarUsuario(){
-	    	Usuario user = null;
-	    	// Busca por usuário no BD. [return: array(nome, senha)]
-	    	String resultado_buscaBD[] = {null, null};
-	    	
-	    	if(resultado_buscaBD[0] != null && resultado_buscaBD[1] != null){
-	    		user = new Usuario(resultado_buscaBD[0], resultado_buscaBD[1]);
+	    	if(!autenticado){
+		    	Usuario user = null;
+		    	// Busca por usuário no BD. [return: array(nome, senha)]
+		    	String resultado_buscaBD[] = {null, null};
+		    	
+		    	if(resultado_buscaBD[0] != null && resultado_buscaBD[1] != null){
+		    		user = new Usuario(resultado_buscaBD[0], resultado_buscaBD[1]);
+		    	}
+		    	
+		    	return user;
+		    	
+	    	}else{
+	    		return usr;
 	    	}
-	    	 
-	    	return user;
 	    	
 	    }
 	    
 	    private static void autenticarUsuario(String usuario, String senha) throws ExcecaoLogin{
-			if(!senha.equals(usr.getPassword())){throw new ExcecaoLogin("");}
-			autenticado = true;
+	    	boolean usuarioCorresponde = usuario.equals(usr.getName());
+	    	boolean senhaCorresponde = senha.equals(usr.getPassword());
+	    	
+	    	if(!autenticado){
+	    		if(!usuarioCorresponde && !senhaCorresponde){throw new ExcecaoLogin("Usuário ou senha inválidos !");}
+	    		autenticado = true;
+	    	}else{
+	    		throw new ExcecaoLogin("O usuário " + usr.getName() + " já está em atividade, operação falhou !");
+	    	}
+	    	
 		}
 	    
 		public static void newPassword(String oldPassword, String newPassword) throws ExcecaoCadastro{

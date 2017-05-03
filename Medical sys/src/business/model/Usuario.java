@@ -1,8 +1,8 @@
 package business.model;
 
 public class Usuario{
-	String name;
-	String password;
+	private String name;
+	private String password;
 	
 	public Usuario(String name, String password){
 		this.name = name;
