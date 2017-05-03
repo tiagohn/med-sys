@@ -1,13 +1,13 @@
 package business.util;
 
 @SuppressWarnings("serial")
-public class LoginException extends Exception{
+public class ExcecaoLogin extends Exception{
 
-	LoginException(){
+	public ExcecaoLogin(){
 		super("Falha no login !");
 	}
 	
-	LoginException(String msg){
+	public ExcecaoLogin(String msg){
 		super(msg);
 	}
 	
