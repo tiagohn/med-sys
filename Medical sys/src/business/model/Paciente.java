@@ -1,22 +1,25 @@
 package business.model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Paciente {
-	String nome; 
-	String cpf;
-	Date data_nascimento; 
-	String endereço;
-	String telefone; 
-	String email;
+	private String nome; 
+	private String cpf;
+	private Calendar data_nascimento; 
+	private String endereço;
+	private String telefone; 
+	private String email;
+	private Tratamento tratamento;
 	
-	public Paciente(String nome, String cpf, Date data_nascimento, String endereço, String telefone, String email) {
+
+	public Paciente(String nome, String cpf, Calendar data_nascimento, String endereço, String telefone, String email) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.data_nascimento = data_nascimento;
 		this.endereço = endereço;
 		this.telefone = telefone;
 		this.email = email;
+		this.tratamento = null;
 		
 	}
 
@@ -36,11 +39,11 @@ public class Paciente {
 		this.cpf = cpf;
 	}
 
-	public Date getData_nascimento() {
+	public Calendar getData_nascimento() {
 		return data_nascimento;
 	}
 
-	public void setData_nascimento(Date data_nascimento) {
+	public void setData_nascimento(Calendar data_nascimento) {
 		this.data_nascimento = data_nascimento;
 	}
 
@@ -66,6 +69,20 @@ public class Paciente {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Tratamento getTratamento() {
+		return tratamento;
+	}
+
+	public void addTratamento(Tratamento tratamento) {
+		if(tratamento == null){
+			// Cria instância da estrutura de dados.
+		}else{
+			// Adiciona o "tratamento" a estrutura. 
+			
+		}
+		
 	}
 	
 	
